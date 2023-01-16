@@ -1,17 +1,26 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import App from './App';
-import Home from './home';
+import Root, { loader as rootLoader, action as rootAction } from "./routes/root";
+import ErrorPage from "./error-page";
+import Contact from "./routes/contact";
+
+
+
 
 const router = createBrowserRouter([
     {
-        path:'/',
-        element:<App/>,
-    },
-    {
-        path:'home',
-        element:<Home/>,
-    }
+    path: "/",
+    element: <Root />,
+    errorElement: <ErrorPage />,
+    loader: rootLoader,
+    action: rootAction,
+    children: [
+      {
+        path: "contacts/:contactId",
+        element: <Contact />,
+      }
+    ],
+  },
 ])
 
 export default router;
